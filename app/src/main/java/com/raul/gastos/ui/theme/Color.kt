@@ -1,0 +1,37 @@
+package com.raul.gastos.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val SeedTeal = Color(0xFF00897B)
+
+val md_light_primary = Color(0xFF006A60)
+val md_light_onPrimary = Color(0xFFFFFFFF)
+val md_light_primaryContainer = Color(0xFF74F8E5)
+val md_light_onPrimaryContainer = Color(0xFF00201C)
+val md_light_secondary = Color(0xFF4A635F)
+val md_light_onSecondary = Color(0xFFFFFFFF)
+val md_light_secondaryContainer = Color(0xFFCCE8E2)
+val md_light_onSecondaryContainer = Color(0xFF051F1C)
+val md_light_background = Color(0xFFFAFDFB)
+val md_light_onBackground = Color(0xFF191C1B)
+val md_light_surface = Color(0xFFFAFDFB)
+val md_light_onSurface = Color(0xFF191C1B)
+val md_light_surfaceVariant = Color(0xFFDAE5E1)
+val md_light_onSurfaceVariant = Color(0xFF3F4946)
+val md_light_outline = Color(0xFF6F7976)
+
+val md_dark_primary = Color(0xFF53DBC9)
+val md_dark_onPrimary = Color(0xFF003731)
+val md_dark_primaryContainer = Color(0xFF005048)
+val md_dark_onPrimaryContainer = Color(0xFF74F8E5)
+val md_dark_secondary = Color(0xFFB1CCC6)
+val md_dark_onSecondary = Color(0xFF1C3531)
+val md_dark_secondaryContainer = Color(0xFF324B47)
+val md_dark_onSecondaryContainer = Color(0xFFCCE8E2)
+val md_dark_background = Color(0xFF101413)
+val md_dark_onBackground = Color(0xFFE0E3E1)
+val md_dark_surface = Color(0xFF101413)
+val md_dark_onSurface = Color(0xFFE0E3E1)
+val md_dark_surfaceVariant = Color(0xFF3F4946)
+val md_dark_onSurfaceVariant = Color(0xFFBEC9C5)
+val md_dark_outline = Color(0xFF899390)

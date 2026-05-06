@@ -1,0 +1,60 @@
+name: Build APK
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Generate Gradle wrapper
+        run: gradle wrapper --gradle-version 8.7 --distribution-type bin
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Locate APK
+        id: apk
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          echo "path=$APK_PATH" >> "$GITHUB_OUTPUT"
+          echo "name=Gastos-${GITHUB_SHA::7}.apk" >> "$GITHUB_OUTPUT"
+
+      - name: Rename APK
+        run: cp "${{ steps.apk.outputs.path }}" "${{ steps.apk.outputs.name }}"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gastos-apk
+          path: ${{ steps.apk.outputs.name }}
+          if-no-files-found: error
+
+      - name: Publish rolling Release (only on main branches)
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/claude/')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: "Gastos build #${{ github.run_number }}"
+          body: |
+            APK firmada con la clave de debug de Android (apta para instalar en tu móvil habilitando "Orígenes desconocidos").
+            Commit: ${{ github.sha }}
+          files: ${{ steps.apk.outputs.name }}
+          draft: false
+          prerelease: true
